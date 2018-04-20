@@ -1,0 +1,14 @@
+# OS X files
+.DS_Store
+
+# JetBrains IDE files
+.idea
+
+# Place to store files that are large, contain sensitive information, or otherwise shouldn't creep into the repository
+wkg/
+
+# Environment Variables. Read by tegola v0.6.0 and higher
+.env
+
+# Tilecache
+cache/

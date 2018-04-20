@@ -1,0 +1,24 @@
+[Unit]
+Description=Tegola Bathymetry Server
+Documentation=https://github.com/go-spatial/tegola-bathymetry
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/env /home/ubuntu/bin/tegola --config=bathymetry.toml serve # for release versions
+# ExecStart=/usr/bin/env /home/ubuntu/go/src/github.com/go-spatial/tegola/cmd/tegola/tegola --config=bathymetry.toml serve # for testing non-release versions
+
+WorkingDirectory=/home/ubuntu/repos/tegola-bathymetry
+
+User=root
+Group=root
+
+EnvironmentFile=-/home/ubuntu/repos/tegola-bathymetry/.env
+
+StandardInput=null
+StandardOutput=syslog
+StandardError=syslog
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+

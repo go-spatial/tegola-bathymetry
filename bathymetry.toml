@@ -1,0 +1,35 @@
+[webserver]
+port = ":${TEGOLA_PORT}"
+
+[cache]
+type="${CACHE_TYPE}"
+basepath="${FILECACHE_BASEPATH}"
+
+#   Bathymetric data
+[[providers]]
+name = "bathymetry"
+type = "postgis"
+host = "${BY_DB_HOST}"
+port = $BY_DB_PORT
+database = "${BY_DB_NAME}"
+user = "${BY_DB_USER}"
+password = "${BY_DB_PASS}"
+
+	[[providers.layers]]
+	name = "contours"
+	geometry_fieldname = "geometry"
+	id_fieldname = "id"
+	sql = "SELECT ST_AsBinary(geom) AS geometry, gid, id, elevation FROM contours WHERE geom && !BBOX!"
+
+
+[[maps]]
+name = "bathymetry"
+attribution = "GEBCO"
+center = [-117.5343, 33.0071, 9.0] # optional center value. part of the TileJSON spec
+
+	# Contours
+	[[maps.layers]]
+	name = "contours"
+	provider_layer = "bathymetry.contours"
+	min_zoom = 4
+	max_zoom = 18
